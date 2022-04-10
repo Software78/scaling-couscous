@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram/resources/auth_methods.dart';
 import 'package:instagram/screens/signup_screen.dart';
 import 'package:instagram/utils/colors.dart';
+import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,6 +31,15 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  void loginUser() async {
+    String res = await AuthMethods().loginUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+
+    showSnackBar(context, res);
   }
 
   @override
@@ -79,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               InkWell(
-                onTap: () {},
+                onTap: loginUser,
                 child: Container(
                   child: const Text('Log In'),
                   width: double.infinity,
@@ -114,11 +125,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       child: const Text(
                         'Sign up',
-                        style:  TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 8),
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                   ],
                 ),
