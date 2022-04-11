@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram/main.dart';
 import 'package:instagram/resources/auth_methods.dart';
 import 'package:instagram/screens/signup_screen.dart';
 import 'package:instagram/utils/colors.dart';
@@ -39,7 +40,15 @@ class _LoginScreenState extends State<LoginScreen> {
       password: _passwordController.text,
     );
 
-    showSnackBar(context, res);
+      if (res != 'success') {
+      showSnackBar(context, res);
+     
+    } else {
+      Navigator.pushReplacementNamed(
+        context,
+        AuthStream.id,
+      );
+    };
   }
 
   @override

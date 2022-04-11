@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instagram/main.dart';
 import 'package:instagram/resources/auth_methods.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
@@ -67,7 +68,12 @@ class _SignupScreenState extends State<SignupScreen> {
       setState(() {
         isLoading != isLoading;
       });
-    } else {}
+    } else {
+      Navigator.pushReplacementNamed(
+        context,
+        AuthStream.id,
+      );
+    }
   }
 
   @override
