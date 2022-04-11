@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Instagram',
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: mobileBackgroundColor,
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         routes: {
           AuthStream.id: (context) => const AuthStream(),
           LoginScreen.id: (context) => const LoginScreen(),
-          SignupScreen.id: (context) => const SignupScreen()
+          SignupScreen.id: (context) => const SignupScreen(),
         },
       ),
     );
