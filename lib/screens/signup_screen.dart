@@ -72,7 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const MobileScreenLayout(),
+          builder: (context) => const AuthStream(),
         ),
       );
       setState(() {
