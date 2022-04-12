@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/main.dart';
 import 'package:instagram/resources/auth_methods.dart';
+import 'package:instagram/screens/add_post.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/text_field_input.dart';
@@ -67,9 +68,11 @@ class _SignupScreenState extends State<SignupScreen> {
       showSnackBar(context, res);
     } else {
       showSnackBar(context, res);
-      Navigator.pushReplacementNamed(
+      Navigator.pushReplacement(
         context,
-        AuthStream.id,
+        MaterialPageRoute(
+          builder: (context) => const AddPost(),
+        ),
       );
       setState(() {
         isLoading = false;
