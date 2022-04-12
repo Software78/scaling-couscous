@@ -1,21 +1,34 @@
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:instagram/models/user_model.dart' as model;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram/resources/storage_methods.dart';
+import 'package:instagram/utils/utils.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  
-  Future<model.User> getUserDetails()async{
-    User currentUser = _auth.currentUser!;
-    DocumentSnapshot snapshot = await _firestore.collection('users').doc(currentUser.uid).get();
-    return model.User.userFromSnap(
-      snapshot
-    );
+
+  logout(BuildContext context) {
+    String res = 'Some error occured';
+    try {
+      _auth.signOut();
+      res = 'Success';
+      showSnackBar(context, res);
+    } catch (err) {
+      res = err.toString();
+      showSnackBar(context, res);
+    }
   }
-  
+
+  Future<model.User> getUserDetails() async {
+    User currentUser = _auth.currentUser!;
+    DocumentSnapshot snapshot =
+        await _firestore.collection('users').doc(currentUser.uid).get();
+    return model.User.userFromSnap(snapshot);
+  }
+
   Future<String> signUp({
     required String email,
     required String password,
@@ -52,8 +65,8 @@ class AuthMethods {
 
         //add user info to database
         await _firestore.collection('users').doc(credential.user!.uid).set(
-       user.toJson(),
-        );
+              user.toJson(),
+            );
         res = "success";
       }
     } catch (err) {

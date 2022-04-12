@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram/models/user_model.dart' as model;
 import 'package:instagram/providers/user_providers.dart';
 import 'package:instagram/utils/colors.dart';
-import 'package:instagram/utils/dimensions.dart';
+import 'package:instagram/utils/global_variables.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 

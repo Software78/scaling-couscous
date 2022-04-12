@@ -5,7 +5,7 @@ import 'package:instagram/models/post_model.dart';
 import 'package:instagram/resources/storage_methods.dart';
 
 class FireStoreMethods {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String> uploadPost(
     Uint8List file,
@@ -29,10 +29,10 @@ class FireStoreMethods {
         profImage: profImage,
         likes: [],
       );
-
       _firestore.collection('posts').doc(postId).set(
             post.toJson(),
           );
+
       res = 'Success';
     } catch (err) {
       res = err.toString();
