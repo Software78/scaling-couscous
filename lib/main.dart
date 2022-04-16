@@ -14,7 +14,7 @@ import 'package:instagram/utils/colors.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding,);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -43,6 +43,10 @@ class MyApp extends StatelessWidget {
         ),
         home: const AuthStream(),
         routes: {
+          ResponsiveLayout.id: (context) => const ResponsiveLayout(
+                mobileScreenLayout: MobileScreenLayout(),
+                webScreenLayout: WebScreenLayout(),
+              ),
           AuthStream.id: (context) => const AuthStream(),
           LoginScreen.id: (context) => const LoginScreen(),
           SignupScreen.id: (context) => const SignupScreen(),

@@ -4,6 +4,8 @@ import 'package:instagram/utils/global_variables.dart';
 import 'package:provider/provider.dart';
 
 class ResponsiveLayout extends StatefulWidget {
+  static const String id = '/responsiveLayout';
+ 
   const ResponsiveLayout({
     Key? key,
     required this.mobileScreenLayout,

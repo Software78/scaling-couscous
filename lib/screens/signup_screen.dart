@@ -7,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:instagram/main.dart';
 import 'package:instagram/resources/auth_methods.dart';
 import 'package:instagram/responsive/mobile_screen_layout.dart';
+import 'package:instagram/responsive/responsive_screen_layout.dart';
+import 'package:instagram/responsive/web_screen_layout.dart';
 import 'package:instagram/screens/add_post.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
@@ -69,11 +71,9 @@ class _SignupScreenState extends State<SignupScreen> {
       showSnackBar(context, res);
     } else {
       showSnackBar(context, res);
-      Navigator.pushReplacement(
+      Navigator.pushReplacementNamed(
         context,
-        MaterialPageRoute(
-          builder: (context) => const AuthStream(),
-        ),
+        AuthStream.id,
       );
       setState(() {
         isLoading = false;

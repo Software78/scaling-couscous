@@ -13,6 +13,7 @@ class FeedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
         title: SvgPicture.asset(
@@ -42,7 +43,6 @@ class FeedScreen extends StatelessWidget {
               snap: snapshot.data!.docs[index].data(),
             ),
             itemCount: snapshot.data!.docs.length,
-
           );
         },
       ),
