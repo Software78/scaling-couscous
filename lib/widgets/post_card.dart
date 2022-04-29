@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:instagram/models/user_model.dart';
 import 'package:instagram/providers/user_providers.dart';
 import 'package:instagram/resources/firestore_methods.dart';
+import 'package:instagram/screens/comments_screen.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class PostCard extends StatefulWidget {
   const PostCard({
@@ -25,6 +27,9 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     final User? user = Provider.of<UserProvider>(context).getUser;
+    if (user == null) {
+      return Container();
+    }
     return Container(
       color: mobileBackgroundColor,
       padding: EdgeInsets.symmetric(
@@ -97,7 +102,7 @@ class _PostCardState extends State<PostCard> {
             child: GestureDetector(
               onDoubleTap: () async {
                 await FireStoreMethods().likePost(
-                    widget.snap['postId'], user!.uid, widget.snap['likes']);
+                    widget.snap['postId'], user.uid, widget.snap['likes']);
                 setState(() {
                   isLikeAnimation = true;
                 });
@@ -119,7 +124,7 @@ class _PostCardState extends State<PostCard> {
                     ),
                     opacity: isLikeAnimation ? 1 : 0,
                     child: LikeAnimation(
-                      child: widget.snap['likes'].contains(user!.uid)
+                      child: widget.snap['likes'].contains(user.uid)
                           ? Icon(
                               Icons.favorite,
                               color: Colors.red,
@@ -154,7 +159,10 @@ class _PostCardState extends State<PostCard> {
                 child: IconButton(
                   onPressed: () async {
                     await FireStoreMethods().likePost(
-                        widget.snap['postId'], user.uid, widget.snap['likes'],);
+                      widget.snap['postId'],
+                      user.uid,
+                      widget.snap['likes'],
+                    );
                   },
                   icon: widget.snap['likes'].contains(user.uid)
                       ? Icon(
@@ -168,7 +176,14 @@ class _PostCardState extends State<PostCard> {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context),),)
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => CommentScreen(
+                            snap: widget.snap,
+                          )),
+                    ),
+                  );
                 },
                 icon: Icon(
                   Icons.comment,

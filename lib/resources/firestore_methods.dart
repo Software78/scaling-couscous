@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -47,7 +48,7 @@ class FireStoreMethods {
   ) async {
     try {
       if (likes.contains(uid)) {
-     await   _firestore.collection('posts').doc(postId).update(
+        await _firestore.collection('posts').doc(postId).update(
           {
             'likes': FieldValue.arrayRemove(
               [uid],
@@ -55,7 +56,7 @@ class FireStoreMethods {
           },
         );
       } else {
-     await   _firestore.collection('posts').doc(postId).update(
+        await _firestore.collection('posts').doc(postId).update(
           {
             'likes': FieldValue.arrayUnion(
               [uid],
@@ -66,5 +67,33 @@ class FireStoreMethods {
     } catch (err) {
       err.toString();
     }
+  }
+
+  Future<String> postComment(String postId, String text, String uid,
+      String profilePic, String name) async {
+    String res = 'Some error occured';
+
+    try {
+      if (text.isNotEmpty) {
+        String commentId = Uuid().v1();
+        await _firestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .set({
+          'profilePic': profilePic,
+          'name': name,
+          'text': text,
+          'commentId': commentId,
+          'datePublished': DateTime.now()
+        });
+      } else {
+        log('text is empty');
+      }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
   }
 }

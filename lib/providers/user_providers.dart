@@ -4,7 +4,7 @@ import 'package:instagram/resources/auth_methods.dart';
 
 class UserProvider extends ChangeNotifier {
   final AuthMethods _authMethods = AuthMethods();
-  User? _user;
+   User? _user;
 
   User? get getUser => _user;
 
